@@ -1,0 +1,16 @@
+modules:
+    - name: module1
+      version: 1.0.10
+      image: example
+      path: /module1
+    - name: module2
+      version: 1.0.4
+      image: example2
+      tag: latest
+      registry: github.com/kildo162
+      path: /module2
+registry:
+    name: registry1
+    endpoint: https://docker.pkg.github.com
+    username: docker
+    password: docker
