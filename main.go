@@ -20,6 +20,7 @@ Examples:
   nana version
   nana build all
 Options:
+  -c, --config  Current version file path
 `
 	runVersion = "v1.0.0"
 )

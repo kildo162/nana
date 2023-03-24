@@ -68,6 +68,11 @@ func GetFileVersion() (c *Data, err error) {
 	return c, err
 }
 
+func GetFileVersionWithPath(path string) (c *Data, err error) {
+	c, err = readConf(path)
+	return c, err
+}
+
 func readConf(filename string) (*Data, error) {
 	buf, err := ioutil.ReadFile(filename)
 	if err != nil {

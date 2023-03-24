@@ -2,6 +2,7 @@ package docker
 
 import (
 	"buildpack/core"
+	"flag"
 	"fmt"
 	"github.com/briandowns/spinner"
 	"github.com/fatih/color"
@@ -11,9 +12,22 @@ import (
 )
 
 func DockerBuild(args []string) {
-	color.Cyan("Nana Init")
+	versionFilePathShot := flag.String("c", "", "Current version file path")
+	versionFilePathLong := flag.String("config", "", "Current version file path")
 
-	data, err := core.GetFileVersion()
+	fileConfigPath := ""
+	if *versionFilePathShot != "" {
+		fileConfigPath = *versionFilePathShot
+	} else if *versionFilePathLong != "" {
+		fileConfigPath = *versionFilePathLong
+	} else {
+		fileConfigPath = "versions.yml"
+	}
+
+	flag.Parse()
+
+	color.Cyan("Nana Init")
+	data, err := core.GetFileVersionWithPath(fileConfigPath)
 	if err != nil {
 		fmt.Printf("%v %v\n", " => Load configuration file:", color.RedString("Failed"))
 		fmt.Println(" => Cannot read versions.yml - " + err.Error())
@@ -21,9 +35,11 @@ func DockerBuild(args []string) {
 		return
 	} else {
 		fmt.Printf("%v %v\n", " => Load configuration file:", color.GreenString("Success"))
+		fmt.Printf("%v %v\n", " => File:", color.GreenString(fileConfigPath))
 	}
 
 	if len(args) >= 3 {
+
 		if args[2] == "all" {
 			color.Cyan("Build all service(s) in versions.yml")
 			fmt.Println(" => Total service(s): " + strconv.Itoa(len(data.Modules)))
