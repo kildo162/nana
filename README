@@ -1,13 +1,10 @@
 # nana
 
-[![Build Status](https://travis-ci.org/kildo162/nana.svg?branch=master)](https://travis-ci.org/kildo162/nana)
-
-
-I make small tool for developer when we work on localdev or other develop environment. Base on support for me when we work local. 
+I make small tool for developer when we work on localdev or other develop environment. Base on support for me when we work local.
 nana support build/push docker image and manager version of docker image. Version is increase by 1 when we build docker image.
 
 For use nana, we need install nana on local machine. We can install nana by download binary file or build from source code.
-Please read user guide for more detail and how to use nana. 
+Please read user guide for more detail and how to use nana.
 
 ## User guide
 
@@ -19,32 +16,34 @@ Download binary file from [release](https://github.com/kildo162/nana/releases) p
 
 #### Build from source code
 
-You can build nana from source code. 
+You can build nana from source code. We need install go and git on local machine.
 
 ```bash
-$ git clone
-$ cd nana
-$ chmod +x build.sh
-$ ./build.sh
+git clone
+cd nana
+chmod +x build.sh
+./build.sh
 ```
 
 ### Commands Available
 
 #### Build
 
-Build docker image and push to docker registry. 
+Build docker image and push to docker registry.
 
-Nana will read config in file `versions.yaml` in current directory. 
+Nana will read config in file `versions.yaml` in current directory.
 If you want change config file, you can use option `-c` or `--config` to set config file.
 
 For build all docker image in config file, we can use command:
+
 ```bash
-$ nana build all
+nana build all
 ```
 
 For build a docker image, we can use command:
+
 ```bash
-$ nana build <docker-image-name>
+nana build <docker-image-name>
 ```
 
 #### Version
@@ -52,7 +51,7 @@ $ nana build <docker-image-name>
 Nana show current version.
 
 ```bash
-$ nana version
+nana version
 ```
 
 #### Help
@@ -60,7 +59,7 @@ $ nana version
 Nana show Usage.
 
 ```bash
-$ nana help
+nana help
 ```
 
 #### Clear
@@ -68,7 +67,7 @@ $ nana help
 Nana clear all images, containers, networks, volumes not use.
 
 ```bash
-$ nana clear
+nana clear
 ```
 
 ### Config file
