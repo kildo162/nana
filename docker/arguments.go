@@ -4,14 +4,17 @@ import (
 	"buildpack/core"
 	"flag"
 	"fmt"
-	"github.com/briandowns/spinner"
-	"github.com/fatih/color"
+	"log"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/briandowns/spinner"
+	"github.com/fatih/color"
 )
 
 func DockerBuild(args []string) {
+
 	versionFilePathShot := flag.String("c", "", "Current version file path")
 	versionFilePathLong := flag.String("config", "", "Current version file path")
 
@@ -81,7 +84,26 @@ func buildOneModule(module core.Module, data *core.Data) {
 		return
 	}
 
-	version.NextPatch()
+	log.Printf(" => Current version: %v", version)
+	versionNextVersionShot := flag.String("n", "", "Current version file path")
+	versionNextVersionLong := flag.String("next", "", "Current version file path")
+	flag.Parse()
+
+	versionNextMinor := ""
+	if *versionNextVersionShot != "" {
+		versionNextMinor = *versionNextVersionShot
+	} else if *versionNextVersionLong != "" {
+		versionNextMinor = *versionNextVersionLong
+	}
+
+	if versionNextMinor == "minor" {
+		version.NextMinor()
+	} else if versionNextMinor == "major" {
+		version.NextMajor()
+	} else {
+		version.NextPatch()
+	}
+
 	dockerImage := BuildDockerImageName(&module, &data.Registry, version)
 	dockerFilePath := BuildDockerPath(&module)
 

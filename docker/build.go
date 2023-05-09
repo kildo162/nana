@@ -6,13 +6,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"html/template"
+	"io"
+	"log"
+
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/archive"
 	"github.com/docker/docker/pkg/jsonmessage"
-	"html/template"
-	"io"
-	"log"
 )
 
 func Build(dockerfilePath string, imageName string) error {
@@ -31,7 +32,6 @@ func Build(dockerfilePath string, imageName string) error {
 		return err
 	}
 
-	//fmt.Println("tarFile: ", tarFile)
 	options := types.ImageBuildOptions{
 		Dockerfile:  "Dockerfile",
 		Tags:        []string{imageName},
